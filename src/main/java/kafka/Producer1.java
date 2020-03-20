@@ -20,12 +20,17 @@ public class Producer1 {
 
         KafkaProducer<String,String> kafkaProducer  = new KafkaProducer<>(properties);
 
-        ProducerRecord<String,String> producerRecord = new ProducerRecord<>("MyTopic","This is venkat");
+        ProducerRecord<String,String> producerRecord = new ProducerRecord<>("MyTopic","This is venkat, just wrote my first producer-consumer. " + System.currentTimeMillis());
 
-        kafkaProducer.send(producerRecord);
+        int i = 1000000;
+
+        while (i >= 0) {
+            Thread.sleep(10);
+            kafkaProducer.send(producerRecord);
+            i--;
+        }
 
         kafkaProducer.flush();
         kafkaProducer.close();
-
     }
 }

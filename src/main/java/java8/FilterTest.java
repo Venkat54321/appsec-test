@@ -2,7 +2,6 @@ package java8;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FilterTest {
 
@@ -12,9 +11,6 @@ public class FilterTest {
 
         list.stream().filter(t -> t%2 == 0)
                      .map(t -> "Number is :  " + t +" ")
-                     .forEach(System.out::print);
-        /*for(Integer i : list2){
-            System.out.print(" "+i);
-        }*/
+                     .forEach(System.out::println);
     }
 }

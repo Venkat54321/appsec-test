@@ -12,21 +12,30 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class Consumer1 {
+public class ConsumerThread implements Runnable {
 
-    public static void main(String[] args) {
+    int i;
 
-        Logger logger= LoggerFactory.getLogger(Consumer1.class.getName());
-        String bootstrapServers="127.0.0.1:9092";
-        String grp_id="third_app1";
-        String topic="MyTopic";
-        //Creating consumer properties
-        Properties properties=new Properties();
+    public ConsumerThread(int i ){
+        this.i = i;
+    }
+
+    Logger logger= LoggerFactory.getLogger(Consumer1.class.getName());
+    String bootstrapServers="127.0.0.1:9092";
+    String grp_id="third_app";
+    String topic="MyTopic";
+    //Creating consumer properties
+    Properties properties=new Properties();
+
+    @Override
+    public void run() {
+
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,   StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG,grp_id);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
+
         //creating consumer
         KafkaConsumer<String,String> consumer= new KafkaConsumer<String,String>(properties);
         //Subscribing
@@ -35,8 +44,7 @@ public class Consumer1 {
         while(true){
             ConsumerRecords<String,String> records=consumer.poll(Duration.ofMillis(100));
             for(ConsumerRecord<String,String> record: records){
-                logger.info("Value is in Consumer 1 : " + record.value());            }
-
+                logger.info("Value is for the theread : " + i + "  " + record.value());            }
 
         }
     }
