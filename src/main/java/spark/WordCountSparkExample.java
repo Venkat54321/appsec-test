@@ -34,10 +34,16 @@ public class WordCountSparkExample {
                               .option("port",9999)
                               .load();*/
 
-        Dataset<String> words = lines
+        // (1,2),(1,3),(2,6),(1,5),(2,1)
+
+        // venkat is good
+        //colortokens working
+
+        Dataset<String> words = lines.selectExpr("CAST(value AS STRING)")
                                 .as(Encoders.STRING())
                                 .flatMap((FlatMapFunction<String, String>) x -> Arrays.asList(x.split(" ")).iterator(), Encoders.STRING());
             Dataset<Row> wordCount = words.groupBy("value").count();
+
 
             StreamingQuery query = wordCount.writeStream()
                                     .outputMode("complete")
