@@ -32,8 +32,8 @@ public class ReduceTest {
                 });
 
 */
-        long coun = objectStream.count();
+        long count = objectStream.count();
 
-        System.out.println(coun);
+        //System.out.println(coun);
     }
 }

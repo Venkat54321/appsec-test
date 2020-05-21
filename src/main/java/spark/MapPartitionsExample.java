@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MapPartitionsExample {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         SparkConf conf = new SparkConf().setMaster("local[1]").setAppName("TestAPp").setMaster("local");
         JavaSparkContext context = new JavaSparkContext(conf);
@@ -26,6 +26,7 @@ public class MapPartitionsExample {
             return Collections.singletonList(sum).iterator();
         });
 
+        Thread.sleep(100000);
         System.out.println("Output is : " +partitionSums.collect().toString());
 
     }
