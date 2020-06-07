@@ -22,6 +22,29 @@ public class longestCommonSubsequenceDP {
                 }
             }
         }
-        System.out.println(m[str1.length()][str2.length()]);
+        printLCS(m,str1.length(),str2.length(),str1,str2);
+    }
+
+    public static void printLCS(int[][] matrix,int m,int n,String str1,String str2){
+
+        int i = m;
+        int j = n;
+        int length = matrix[m][n];
+        System.out.println("Total lenght is :" + length);
+        char[] lcs = new char[length+1];
+        while (i > 0 && j > 0){
+            if(str1.charAt(i-1) == str2.charAt(j-1)){
+                lcs[length-1] = str1.charAt(i-1);
+                i--;
+                j--;
+                length--;
+            }else if(matrix[i-1][j] > matrix[i][j-1]){
+                i--;
+            }else {
+                j--;
+            }
+        }
+        System.out.println(lcs);
+
     }
 }
